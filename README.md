@@ -36,11 +36,15 @@ Or serve it yourself:
 ```
 
 The script tag defines the global `ColorPicker`. In TypeScript or with a
-bundler, import it instead -- the package ships its own types:
+bundler, install it and import instead -- the package ships its own types:
+
+```sh
+npm install @mansi1/color-picker
+```
 
 ```ts
-import ColorPicker, { type ColorPickerOptions, type RGB, type HSV } from 'color-picker';
-import 'color-picker/dist/color-picker.css';
+import ColorPicker, { type ColorPickerOptions, type RGB, type HSV } from '@mansi1/color-picker';
+import '@mansi1/color-picker/dist/color-picker.css';
 
 const picker = new ColorPicker({ hex: '#ff0000' });
 ```

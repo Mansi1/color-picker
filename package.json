@@ -1,5 +1,5 @@
 {
-  "name": "color-picker",
+  "name": "@mansi1/color-picker",
   "version": "1.0.0",
   "description": "Dependency-free color picker: a hue ring with a rotating HSV triangle.",
   "main": "dist/color-picker.js",
@@ -34,5 +34,8 @@
     "build": "tsc && node scripts/build.mjs",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run build"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
