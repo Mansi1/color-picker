@@ -4,6 +4,19 @@ A color picker in TypeScript: a hue ring with an HSV triangle inside it. The
 triangle's corners are the pure hue, white and black, and it rotates so the hue
 corner always points at the hue handle. No runtime dependencies.
 
+From the CDN -- no install, no build:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Mansi1/color-picker@v1.0.0/dist/color-picker.min.css">
+<script src="https://cdn.jsdelivr.net/gh/Mansi1/color-picker@v1.0.0/dist/color-picker.min.js"></script>
+```
+
+Pin the tag as above and the file is immutable and cached for a year. Swapping
+`@v1.0.0` for `@main` tracks the branch instead, but jsDelivr recaches those
+every 12 hours.
+
+Or serve it yourself:
+
 ```html
 <link rel="stylesheet" href="dist/color-picker.min.css">
 <script src="dist/color-picker.min.js"></script>
