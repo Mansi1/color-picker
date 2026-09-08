@@ -1,12 +1,12 @@
 # color-picker
 
-A color picker in plain JavaScript: a hue ring with an HSV triangle inside
-it. The triangle's corners are the pure hue, white and black, and it rotates so
-the hue corner always points at the hue handle. No dependencies, no build step.
+A color picker in TypeScript: a hue ring with an HSV triangle inside it. The
+triangle's corners are the pure hue, white and black, and it rotates so the hue
+corner always points at the hue handle. No runtime dependencies.
 
 ```html
-<link rel="stylesheet" href="src/color-picker.css">
-<script src="src/color-picker.js"></script>
+<link rel="stylesheet" href="dist/color-picker.min.css">
+<script src="dist/color-picker.min.js"></script>
 
 <script>
   var picker = new ColorPicker({
@@ -22,7 +22,18 @@ the hue corner always points at the hue handle. No dependencies, no build step.
 </script>
 ```
 
-Open `test.html` for a working demo.
+The script tag defines the global `ColorPicker`. In TypeScript or with a
+bundler, import it instead -- the package ships its own types:
+
+```ts
+import ColorPicker, { type ColorPickerOptions, type RGB, type HSV } from 'color-picker';
+import 'color-picker/dist/color-picker.css';
+
+const picker = new ColorPicker({ hex: '#ff0000' });
+```
+
+Open `test.html` for a working demo, or see it live at
+<https://mansi1.github.io/color-picker/>.
 
 ## Options
 
@@ -49,7 +60,8 @@ value actually changed). Setting a gray or black color keeps the existing hue
 and saturation handle positions rather than snapping them back to red.
 
 Static helpers are also exposed: `ColorPicker.hsv2rgb`, `rgb2hsv`, `rgb2hex`,
-`hex2rgb` (`hex2rgb` returns `null` for anything unparseable).
+`hex2rgb` (`hex2rgb` returns `null` for anything unparseable). They are named
+exports of the module too.
 
 ## Accessibility
 
@@ -60,6 +72,26 @@ by 10, and Home/End jump to the extremes.
 Dragging anywhere inside the ring moves the triangle handle -- including the
 gaps at the triangle's corners, where the position is clamped onto the nearest
 edge -- so the hue never shifts by accident mid-drag.
+
+## Building
+
+The source is `src/color-picker.ts` and `src/color-picker.css`; everything in
+`dist/` is generated and committed so the demo pages and GitHub Pages can load
+it directly.
+
+```sh
+npm install
+npm run build     # tsc for types, esbuild for the bundles
+npm run typecheck
+```
+
+| File | What it is |
+| --- | --- |
+| `dist/color-picker.js` | Readable bundle; defines the global `ColorPicker`. |
+| `dist/color-picker.min.js` | Same, minified. |
+| `dist/color-picker.css` | Stylesheet. |
+| `dist/color-picker.min.css` | Same, minified. |
+| `dist/color-picker.d.ts` | Type declarations. |
 
 ## License
 

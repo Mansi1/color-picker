@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>color-picker — hue ring with an HSV triangle</title>
-<meta name="description" content="A dependency-free color picker in plain JavaScript: a hue ring with a rotating HSV triangle.">
-<link rel="stylesheet" href="src/color-picker.css">
-<script src="src/color-picker.js"></script>
+<meta name="description" content="A dependency-free color picker in TypeScript: a hue ring with a rotating HSV triangle.">
+<link rel="stylesheet" href="dist/color-picker.min.css">
+<script src="dist/color-picker.min.js"></script>
 <style>
   :root {
     --bg: #1b1b1e;
@@ -117,9 +117,9 @@
 <main>
   <h1>color-picker</h1>
   <p class="lead">
-    A color picker in plain JavaScript — a hue ring with an HSV triangle that
+    A color picker in TypeScript — a hue ring with an HSV triangle that
     rotates so its pure-hue corner always points at the hue handle.
-    No dependencies, no build step.
+    No runtime dependencies.
   </p>
 
   <div class="demo">
@@ -138,8 +138,8 @@
   </div>
 
   <h2>Usage</h2>
-<pre><code>&lt;link rel="stylesheet" href="src/color-picker.css"&gt;
-&lt;script src="src/color-picker.js"&gt;&lt;/script&gt;
+<pre><code>&lt;link rel="stylesheet" href="dist/color-picker.min.css"&gt;
+&lt;script src="dist/color-picker.min.js"&gt;&lt;/script&gt;
 
 &lt;script&gt;
   var picker = new ColorPicker({

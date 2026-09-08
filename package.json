@@ -1,13 +1,38 @@
 {
   "name": "color-picker",
   "version": "1.0.0",
-  "description": "Color picker: hue ring plus a rotating HSV triangle.",
-  "main": "src/color-picker.js",
+  "description": "Dependency-free color picker: a hue ring with a rotating HSV triangle.",
+  "main": "dist/color-picker.js",
   "files": [
-    "src/color-picker.js",
-    "src/color-picker.css",
+    "dist",
+    "src",
     "README.md"
   ],
-  "keywords": ["color", "picker", "color-wheel", "hsv"],
-  "license": "MIT"
+  "keywords": [
+    "color",
+    "picker",
+    "color-wheel",
+    "color-triangle",
+    "hsv",
+    "typescript"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "esbuild": "^0.28.2",
+    "typescript": "^7.0.2"
+  },
+  "module": "dist/color-picker.js",
+  "types": "dist/color-picker.d.ts",
+  "unpkg": "dist/color-picker.min.js",
+  "jsdelivr": "dist/color-picker.min.js",
+  "homepage": "https://mansi1.github.io/color-picker/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mansi1/color-picker.git"
+  },
+  "scripts": {
+    "build": "tsc && node scripts/build.mjs",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  }
 }

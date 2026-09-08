@@ -1,0 +1,35 @@
+/*! color-picker v1.0.0 | MIT | https://mansi1.github.io/color-picker/ */
+.color-picker {
+  position: relative;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.color-picker__wheel,
+.color-picker__triangle {
+  position: absolute;
+  display: block;
+}
+.color-picker__wheel {
+  left: 0;
+  top: 0;
+}
+.color-picker__handle {
+  position: absolute;
+  box-sizing: border-box;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.55), 0 1px 3px rgba(0, 0, 0, 0.4);
+  cursor: grab;
+}
+.color-picker__handle:active {
+  cursor: grabbing;
+}
+.color-picker__handle:focus-visible {
+  outline: 2px solid #4c9aff;
+  outline-offset: 2px;
+}
+.color-picker--dark-handle .color-picker__handle--sv {
+  border-color: rgba(0, 0, 0, 0.75);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
