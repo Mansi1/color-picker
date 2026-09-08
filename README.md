@@ -32,8 +32,8 @@ import 'color-picker/dist/color-picker.css';
 const picker = new ColorPicker({ hex: '#ff0000' });
 ```
 
-Open `test.html` for a working demo, or see it live at
-<https://mansi1.github.io/color-picker/>.
+See it live at <https://mansi1.github.io/color-picker/>, or open
+`index.html` locally for the same demo.
 
 ## Options
 
