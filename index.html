@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>color-picker — hue ring with an HSV triangle</title>
+<meta name="description" content="A dependency-free color picker in plain JavaScript: a hue ring with a rotating HSV triangle.">
+<link rel="stylesheet" href="src/color-picker.css">
+<script src="src/color-picker.js"></script>
+<style>
+  :root {
+    --bg: #1b1b1e;
+    --panel: #26262b;
+    --line: #37373e;
+    --text: #ececf1;
+    --muted: #9a9aa6;
+    --accent: #7aa2ff;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 48px 20px 64px;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+
+  main { max-width: 720px; margin: 0 auto; }
+
+  h1 { font-size: 30px; margin: 0 0 6px; letter-spacing: -0.02em; }
+  h2 { font-size: 15px; text-transform: uppercase; letter-spacing: 0.08em;
+       color: var(--muted); margin: 40px 0 14px; font-weight: 600; }
+  p.lead { margin: 0; color: var(--muted); }
+
+  .demo {
+    margin-top: 32px;
+    padding: 28px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    display: flex;
+    gap: 32px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .fields { flex: 1 1 220px; min-width: 200px; }
+
+  .swatch {
+    height: 68px;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  .row { display: flex; gap: 10px; margin-top: 12px; }
+
+  input {
+    flex: 1;
+    min-width: 0;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #1b1b1f;
+    color: var(--text);
+    font: 15px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    text-transform: uppercase;
+  }
+
+  input:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  button {
+    padding: 10px 14px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #303038;
+    color: var(--text);
+    font: inherit;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  button:hover { background: #3a3a44; }
+
+  dl { margin: 12px 0 0; font: 13px/1.9 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--muted); }
+  dl div { display: flex; gap: 8px; }
+  dt { color: #6f6f7d; min-width: 34px; }
+  dd { margin: 0; }
+
+  pre {
+    margin: 0;
+    padding: 18px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow-x: auto;
+    font: 13.5px/1.65 ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  ul { margin: 0; padding-left: 20px; color: var(--muted); }
+  li { margin-bottom: 8px; }
+  li b { color: var(--text); font-weight: 600; }
+
+  footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line);
+           color: var(--muted); font-size: 14px; }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <h1>color-picker</h1>
+  <p class="lead">
+    A color picker in plain JavaScript — a hue ring with an HSV triangle that
+    rotates so its pure-hue corner always points at the hue handle.
+    No dependencies, no build step.
+  </p>
+
+  <div class="demo">
+    <div id="picker"></div>
+    <div class="fields">
+      <div class="swatch" id="swatch">#FF0000</div>
+      <div class="row">
+        <input id="hex" value="#FF0000" spellcheck="false" aria-label="Hex color">
+        <button id="copy" type="button">Copy</button>
+      </div>
+      <dl>
+        <div><dt>rgb</dt><dd id="rgb"></dd></div>
+        <div><dt>hsv</dt><dd id="hsv"></dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <h2>Usage</h2>
+<pre><code>&lt;link rel="stylesheet" href="src/color-picker.css"&gt;
+&lt;script src="src/color-picker.js"&gt;&lt;/script&gt;
+
+&lt;script&gt;
+  var picker = new ColorPicker({
+    appendTo: document.getElementById('container'),
+    hex: '#ff0000',
+    wheelDiameter: 250,
+    wheelThickness: 24,
+    handleDiameter: 16,
+    onChange: function (color) {
+      console.log(color.hex, color.rgb, color.hsv);
+    }
+  });
+&lt;/script&gt;</code></pre>
+
+  <h2>Notes</h2>
+  <ul>
+    <li><b>The triangle is a blend, not a lookup.</b> An HSV color is exactly the
+      linear RGB mix of the triangle's three corners — hue, white and black — so it
+      renders as a barycentric interpolation with no color conversion per pixel.</li>
+    <li><b>Drag anywhere inside the ring.</b> In the gaps at the triangle's corners
+      the position clamps onto the nearest edge, so the hue never shifts mid-drag.</li>
+    <li><b>hex, rgb and hsv are readable and writable.</b> Invalid hex is ignored, so
+      the setter can be wired straight to an <code>&lt;input&gt;</code>. Gray and black
+      keep the hue and saturation you already had.</li>
+    <li><b>Keyboard accessible.</b> Both handles are focusable sliders: arrow keys move
+      by 1, Shift by 10, Home/End jump to the extremes.</li>
+  </ul>
+
+  <footer>
+    <a href="https://github.com/Mansi1/color-picker">Source on GitHub</a> · MIT licensed
+  </footer>
+</main>
+
+<script>
+  var swatch = document.getElementById('swatch');
+  var hexInput = document.getElementById('hex');
+  var rgbOut = document.getElementById('rgb');
+  var hsvOut = document.getElementById('hsv');
+
+  var picker = new ColorPicker({
+    appendTo: document.getElementById('picker'),
+    hex: '#ff0000',
+    wheelDiameter: 250,
+    wheelThickness: 24,
+    handleDiameter: 16,
+    onChange: function (color) {
+      var hex = color.hex, rgb = color.rgb, hsv = color.hsv;
+      swatch.style.background = hex;
+      swatch.textContent = hex.toUpperCase();
+      // Dark text once the swatch is bright enough to swallow white.
+      swatch.style.color = hsv[2] > 65 && hsv[1] < 70 ? '#141416' : '#fff';
+      if (document.activeElement !== hexInput) hexInput.value = hex.toUpperCase();
+      rgbOut.textContent = rgb.join(', ');
+      hsvOut.textContent = Math.round(hsv[0]) + '°, ' +
+        Math.round(hsv[1]) + '%, ' + Math.round(hsv[2]) + '%';
+    }
+  });
+
+  hexInput.addEventListener('input', function () { picker.hex = hexInput.value; });
+
+  document.getElementById('copy').addEventListener('click', function () {
+    var btn = this;
+    var done = function () {
+      btn.textContent = 'Copied';
+      setTimeout(function () { btn.textContent = 'Copy'; }, 1200);
+    };
+    if (navigator.clipboard) navigator.clipboard.writeText(picker.hex).then(done, function () {});
+    else { hexInput.select(); document.execCommand('copy'); done(); }
+  });
+
+  picker.onChange(picker);
+</script>
+</body>
+</html>

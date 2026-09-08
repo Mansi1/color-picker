@@ -1,0 +1,13 @@
+{
+  "name": "color-picker",
+  "version": "1.0.0",
+  "description": "Color picker: hue ring plus a rotating HSV triangle.",
+  "main": "src/color-picker.js",
+  "files": [
+    "src/color-picker.js",
+    "src/color-picker.css",
+    "README.md"
+  ],
+  "keywords": ["color", "picker", "color-wheel", "hsv"],
+  "license": "MIT"
+}
