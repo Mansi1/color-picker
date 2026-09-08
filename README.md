@@ -30,12 +30,12 @@ corner always points at the hue handle.
 From the CDN -- no install, no build:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Mansi1/color-picker@v1.0.0/dist/color-picker.min.css">
-<script src="https://cdn.jsdelivr.net/gh/Mansi1/color-picker@v1.0.0/dist/color-picker.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Mansi1/color-picker@v1.0.1/dist/color-picker.min.css">
+<script src="https://cdn.jsdelivr.net/gh/Mansi1/color-picker@v1.0.1/dist/color-picker.min.js"></script>
 ```
 
 Pin the tag as above and the file is immutable and cached for a year. Swapping
-`@v1.0.0` for `@main` tracks the branch instead, but jsDelivr recaches those
+`@v1.0.1` for `@main` tracks the branch instead, but jsDelivr recaches those
 every 12 hours.
 
 Or from npm:

@@ -1,4 +1,4 @@
-/*! @mansi1/color-picker v1.0.0 | MIT | https://mansi1.github.io/color-picker/ */
+/*! @mansi1/color-picker v1.0.1 | MIT | https://mansi1.github.io/color-picker/ */
 "use strict";
 var ColorPicker = (() => {
   var __defProp = Object.defineProperty;
